@@ -1,0 +1,23 @@
+{
+  "dependencies": {
+    "inquirer": "^8.2.4"
+  },
+  "name": "m12-employee-tracker",
+  "description": "This is a command-line application to manage a company's employee database, using Node.js, Inquirer, and MySQL. This is a part of the Module 12 Challenge for the Ohio State University Coding Bootcamp.",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ChelseaLuevano/M12-Employee-Tracker.git"
+  },
+  "author": "Chelsea Luevano",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ChelseaLuevano/M12-Employee-Tracker/issues"
+  },
+  "homepage": "https://github.com/ChelseaLuevano/M12-Employee-Tracker#readme"
+}
