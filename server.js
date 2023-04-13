@@ -11,6 +11,12 @@ const app = express();
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
+// Function for app port
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
+  
+
 // Connect to database
 const db = mysql.createConnection(
   {
