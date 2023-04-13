@@ -1,5 +1,5 @@
 const inquirer = require('inquirer');
-const fs = require('fs');
+const cTable = require('console.table');
 
 const db = require('./db/connection');
 const {queryDepartments, queryRoles, queryEmployees,  newRole, newEmployee, updateEmployeeInfo, createDepartment} = require('./db/queries.js');

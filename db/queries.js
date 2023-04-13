@@ -1,8 +1,7 @@
-
 const db = require('./connection.js');
 
 const queryDepartments = function(){
-    db.query('SELECT * FROM departments;')
+   console.table(db.query('SELECT * FROM departments;'))
 }
 
 const queryRoles = function(){
@@ -14,9 +13,7 @@ const queryEmployees = function(){
 }
 
 const newRole = function(answers){
-    db.query('INSERT INTO roles SET ?;', rolename)
-    db.query('INSERT INTO employees SET ?;', salary)
-    db.query('INSERT INTO departments SET ?;', department)
+    db.query('INSERT INTO roles (title, salary, department_id) VALUES (?,?,?);', rolename, salary, department)
 }
 
 const newEmployee = function(){
