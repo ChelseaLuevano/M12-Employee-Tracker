@@ -1,5 +1,5 @@
 
-const db = require('/connection.js');
+const db = require('./connection.js');
 
 const queryDepartments = function(){
     db.query('SELECT * FROM departments;')
@@ -17,7 +17,6 @@ const newRole = function(answers){
     db.query('INSERT INTO roles SET ?;', rolename)
     db.query('INSERT INTO employees SET ?;', salary)
     db.query('INSERT INTO departments SET ?;', department)
-  
 }
 
 const newEmployee = function(){
@@ -32,4 +31,4 @@ const createDepartment = function(department){
     db.query('INSERT INTO departments SET ?;', department)
     console.log("added department");
 }
-modules.exports = {queryDepartments, queryRoles, queryEmployees, newRole, newEmployee, updateEmployeeInfo, createDepartment}
+module.exports = {queryDepartments, queryRoles, queryEmployees, newRole, newEmployee, updateEmployeeInfo, createDepartment}

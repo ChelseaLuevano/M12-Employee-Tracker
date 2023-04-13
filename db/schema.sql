@@ -1,4 +1,5 @@
 DROP DATABASE IF EXISTS human_resources_db;
+
 -- Creates the "human_resources_db" database --
 CREATE DATABASE human_resources_db;
 

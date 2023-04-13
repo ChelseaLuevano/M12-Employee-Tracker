@@ -9,6 +9,6 @@ const db = mysql.createConnection(
       password: 'HappyDog13$',
       database: 'human_resources_db'
     },
-    console.log(`Connected to the books_db database.`)
+    console.log(`Connected to the human_resources_db database.`)
   );
   

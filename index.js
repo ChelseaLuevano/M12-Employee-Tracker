@@ -1,8 +1,8 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
 
-const db = require('db/connection.js');
-const {queryDepartments, queryRoles, queryEmployees,  newRole, newEmployee, updateEmployeeInfo, createDepartment} = require('db/queries.js');
+const db = require('./db/connection');
+const {queryDepartments, queryRoles, queryEmployees,  newRole, newEmployee, updateEmployeeInfo, createDepartment} = require('./db/queries.js');
 
 // CLI questions
 const hubQuestion = {
@@ -114,16 +114,39 @@ function addARole() {
     ).then((answers)=> {
         newRole(answers);
         homePage();
-    })
-    
-    
-   
+    })   
 }
 
 // Function to Add an Employee
 function addEmployee(){
-    newEmployee();
-    homePage();
+    inquirer.prompt(
+        {
+            type: 'input',
+            message: 'What is the first name of the employee?',
+            name: 'firstname',
+            validate: (value) => { if (value) { return true } else { return "Please enter a first name." }},
+        },
+        {
+            type: 'list',
+            message: 'What is the role of the employee?',
+            name: 'employeerole',
+            choices: [
+                "Sales Person",
+                "Sales Lead",
+                "Accountant"
+            ],
+            validate: (value) => { if (value) { return true } else { return "Please pick a role from the list." }},
+        },
+        {
+            type: 'input',
+            message: "What is the first and last name of the employee's manager?",
+            name: 'manager',
+            validate: (value) => { if (value) { return true } else { return "Please enter manager's name." }},
+        },
+    ).then((answers) => {
+        newEmployee();
+        homePage();
+    })
 }
 
 // Function to Update an Employee Role
@@ -131,9 +154,6 @@ function updateEmployeeRole(){
     updateEmployeeRole();
     homePage();
 }
-
-
-
 
 // Function to initialize app
 function init(){
