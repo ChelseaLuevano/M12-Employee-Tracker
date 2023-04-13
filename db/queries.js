@@ -9,8 +9,24 @@ const queryRoles = function(){
     db.query('SELECT * FROM roles;')
 }
 
-const addDepartment = function(department){
+const queryEmployees = function(){
+    db.query('SELECT * FROM employees;')
+}
+
+const newRole = function(){
+    console.log("new role added")
+}
+
+const newEmployee = function(){
+    console.log("new employee added")
+}
+
+const updateEmployeeInfo = function(){
+    console.log("new employee's info has been added")
+}
+
+const createDepartment = function(department){
     db.query('INSERT INTO departments SET ?;', department)
     console.log("added department");
 }
-modules.exports = {queryDepartments, queryRoles,  addDepartment}
+modules.exports = {queryDepartments, queryRoles, queryEmployees, newRole, newEmployee, updateEmployeeInfo, createDepartment}

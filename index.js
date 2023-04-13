@@ -2,7 +2,7 @@ const inquirer = require('inquirer');
 const fs = require('fs');
 
 const db = require('db/connection.js');
-const {queryDepartments, queryRoles, addDepartment} = require('db/queries.js');
+const {queryDepartments, queryRoles, queryEmployees,  newRole, newEmployee, updateEmployeeInfo, createDepartment} = require('db/queries.js');
 
 // CLI questions
 const hubQuestion = {
@@ -66,8 +66,34 @@ function viewAllDepartments() {
 }
 
 // Function to View All Roles
+function viewAllRoles() {
+    queryRoles();
+    homePage();
+}
 
 // Function to View All Employees
+function viewAllEmployees() {
+    queryEmployees();
+    homePage();
+}
+
+// Function to Add a Role
+function addARole() {
+    newRole();
+    homePage();
+}
+
+// Function to Add an Employee
+function addEmployee(){
+    newEmployee();
+    homePage();
+}
+
+// Function to Update an Employee Role
+function updateEmployeeRole(){
+    updateEmployeeRole();
+    homePage();
+}
 
 // Function to Add a Department
 function addADepartment(){
