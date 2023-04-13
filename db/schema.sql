@@ -22,3 +22,7 @@ CREATE TABLE departments (
     FOREIGN KEY (employees_id)
     REFERENCES employees(id)
 );
+
+CREATE TABLE roles (
+    
+)
