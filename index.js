@@ -14,7 +14,8 @@ const questions = [
             "Add a Department", 
             "Add a Role",
             "Add an Employee", 
-            "Update an Employee Role"
+            "Update an Employee Role",
+            "Quit"
         ]
     }
 ]
