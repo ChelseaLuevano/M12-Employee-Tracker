@@ -20,6 +20,15 @@ const questions = [
     }
 ]
 
+const departmentQuestions = [
+    {
+        type: 'input',
+        message: 'What is the name of the department?',
+        name: 'department',
+        validate: (value) => { if (value) { return true } else { return "Please enter a department title." }},
+    }
+]
+
 
 // Function to initialize app
 function init() {
