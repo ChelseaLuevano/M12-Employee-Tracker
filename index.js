@@ -33,6 +33,24 @@ function homePage() {
                     break;
                 case "View All Roles":
                     viewAllRoles()
+                    break; 
+                case "View All Employees":
+                    viewAllEmployees()
+                    break;
+                case "Add a Department":
+                    addADepartment()
+                    break;
+                case "Add a Role":
+                    addARole()
+                    break;
+                case "Add an Employee":   
+                    addEmployee()
+                    break;
+                case "Update an Employee Role":
+                    updateEmployeeRole()
+                    break;
+                case "Quit":
+                    quit()
                     break;    
             }
         })
