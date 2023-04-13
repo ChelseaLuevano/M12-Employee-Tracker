@@ -6,23 +6,28 @@ CREATE DATABASE human_resources_db;
 USE human_resources_db;
 
 CREATE TABLE employees (
-    id INT Not NULL PRIMARY KEY AUTO_INCREMENT,
+    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     first_name VARCHAR(150) NOT NULL,
     last_name VARCHAR(150) NOT NULL,
-    title VARCHAR(250) NOT NULL,
+    title VARCHAR (150) NOT NULL,
     department VARCHAR(250) NOT NULL,
     salary INT NOT NULL,
-    manager
+    manager VARCHAR(150),
+    FOREIGN KEY (departments_department)
+    REFERENCES departments(department)
+    FOREIGN KEY (roles_title)
+    REFERENCES roles (title)
 );
 
 
 CREATE TABLE departments (
-    id INT Not NULL PRIMARY KEY AUTO_INCREMENT,
+    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     department VARCHAR(250) NOT NULL,
     FOREIGN KEY (employees_id)
     REFERENCES employees(id)
 );
 
 CREATE TABLE roles (
-    
-)
+    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    title VARCHAR(250) NOT NULL
+);

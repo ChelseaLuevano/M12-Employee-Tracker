@@ -13,8 +13,11 @@ const queryEmployees = function(){
     db.query('SELECT * FROM employees;')
 }
 
-const newRole = function(){
-    console.log("new role added")
+const newRole = function(answers){
+    db.query('INSERT INTO roles SET ?;', rolename)
+    db.query('INSERT INTO employees SET ?;', salary)
+    db.query('INSERT INTO departments SET ?;', department)
+  
 }
 
 const newEmployee = function(){
