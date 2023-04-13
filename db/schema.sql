@@ -14,3 +14,11 @@ CREATE TABLE employees (
     salary INT NOT NULL,
     manager
 );
+
+
+CREATE TABLE department (
+    id INT Not NULL PRIMARY KEY AUTO_INCREMENT,
+    department VARCHAR(250) NOT NULL,
+    FOREIGN KEY (employees_id)
+    REFERENCES employees(id)
+);
