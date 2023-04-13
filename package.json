@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "express.js": "^1.0.0",
     "inquirer": "^8.2.4",
     "mysql2": "^3.2.0"
   },

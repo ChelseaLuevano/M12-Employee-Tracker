@@ -16,7 +16,7 @@ CREATE TABLE employees (
 );
 
 
-CREATE TABLE department (
+CREATE TABLE departments (
     id INT Not NULL PRIMARY KEY AUTO_INCREMENT,
     department VARCHAR(250) NOT NULL,
     FOREIGN KEY (employees_id)
