@@ -1,7 +1,10 @@
 const db = require('./connection.js');
+const cTable = require('console.table');
 
 const queryDepartments = function(){
-   console.table(db.query('SELECT * FROM departments;'))
+ let allDepartments = (db.query('SELECT * FROM departments;'));
+ console.log(allDepartments);
+   console.table("the queryDepartments function was called");
 }
 
 const queryRoles = function(){
@@ -28,4 +31,5 @@ const createDepartment = function(department){
     db.query('INSERT INTO departments SET ?;', department)
     console.log("added department");
 }
+
 module.exports = {queryDepartments, queryRoles, queryEmployees, newRole, newEmployee, updateEmployeeInfo, createDepartment}

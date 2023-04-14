@@ -1,5 +1,4 @@
 const inquirer = require('inquirer');
-const cTable = require('console.table');
 
 const db = require('./db/connection');
 const {queryDepartments, queryRoles, queryEmployees,  newRole, newEmployee, updateEmployeeInfo, createDepartment} = require('./db/queries.js');
@@ -27,28 +26,28 @@ function homePage() {
         .then(answer => {
             switch(answer){
                 case "View All Departments":
-                    viewAllDepartments()
+                    viewAllDepartments();
                     break;
                 case "View All Roles":
-                    viewAllRoles()
+                    viewAllRoles();
                     break; 
                 case "View All Employees":
-                    viewAllEmployees()
+                    viewAllEmployees();
                     break;
                 case "Add a Department":
-                    addADepartment()
+                    addADepartment();
                     break;
                 case "Add a Role":
-                    addARole()
+                    addARole();
                     break;
                 case "Add an Employee":   
-                    addEmployee()
+                    addEmployee();
                     break;
                 case "Update an Employee Role":
-                    updateEmployeeRole()
+                    updateEmployeeRole();
                     break;
                 case "Quit":
-                    quit()
+                    quit();
                     break;    
             }
         })
@@ -109,7 +108,7 @@ function addARole() {
             type: 'input',
             message: 'What department is the role in?',
             name: 'department',
-            validate: (value) => { if (value) { return true } else { return "Please enter a salary." }},
+            validate: (value) => { if (value) { return true } else { return "Please enter a department title." }},
         },
     ).then((answers)=> {
         newRole(answers);

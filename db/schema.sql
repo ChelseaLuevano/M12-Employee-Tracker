@@ -6,6 +6,23 @@ CREATE DATABASE human_resources_db;
 -- Makes it so all of the following code will affect human_resources_db --
 USE human_resources_db;
 
+
+CREATE TABLE departments (
+    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    department VARCHAR(250) NOT NULL
+
+);    
+
+
+CREATE TABLE roles (
+    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    title VARCHAR(250) NOT NULL,
+    salary INT NOT NULL,
+    department_id INT NOT NULL,
+    FOREIGN KEY (department_id)
+    REFERENCES departments(id)
+);
+
 CREATE TABLE employees (
     id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     first_name VARCHAR(150) NOT NULL,
@@ -15,22 +32,9 @@ CREATE TABLE employees (
     manager VARCHAR(150),
     role_id INT NOT NULL,
     FOREIGN KEY (department_id)
-    REFERENCES departments(id)
+    REFERENCES departments(id),
     FOREIGN KEY (role_id)
     REFERENCES roles (id)
 );
 
 
-CREATE TABLE departments (
-    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    department VARCHAR(250) NOT NULL
-);
-
-CREATE TABLE roles (
-    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    title VARCHAR(250) NOT NULL,
-    salary INT NOT NULL
-    department_id INT NOT NULL,
-    FOREIGN KEY (department_id)
-    REFERENCES departments(id)
-);

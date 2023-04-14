@@ -2,8 +2,7 @@
 const mysql = require('mysql2');
 
 // Connect to database
-const db = mysql.createConnection(
-    {
+const connection = mysql.createConnection({
       host: 'localhost',
       user: 'root',
       password: 'HappyDog13$',
@@ -11,4 +10,5 @@ const db = mysql.createConnection(
     },
     console.log(`Connected to the human_resources_db database.`)
   );
+ connection.connect();
   
