@@ -60,19 +60,19 @@ function homePage() {
 function viewAllDepartments() {
     console.log("viewAllDepartments function was called")
     queryDepartments();
-    homePage();
+    // homePage();
 }
 
 // Function to View All Roles
 function viewAllRoles() {
     queryRoles();
-    homePage();
+    // homePage();
 }
 
 // Function to View All Employees
 function viewAllEmployees() {
     queryEmployees();
-    homePage();
+    // homePage();
 }
 
 // Function to Add a Department
@@ -113,7 +113,7 @@ function addARole() {
         },
     ).then((answers)=> {
         newRole(answers);
-        homePage();
+        // homePage();
     })   
 }
 
@@ -145,14 +145,14 @@ function addEmployee(){
         },
     ).then((answers) => {
         newEmployee();
-        homePage();
+        // homePage();
     })
 }
 
 // Function to Update an Employee Role
 function updateEmployeeRole(){
     updateEmployeeInfo();
-    homePage();
+    // homePage();
 }
 
 // Function to initialize app
@@ -161,3 +161,5 @@ function init(){
 }
 
 init();
+
+module.exports = {homePage}

@@ -1,4 +1,5 @@
 const cTable = require('console.table');
+const {homePage} = require('../index.js');
 
 // Import and require mysql2
 const mysql = require('mysql2');
@@ -9,30 +10,33 @@ const connection = mysql.createConnection({
       user: 'root',
       password: 'HappyDog13$',
       database: 'human_resources_db'
-    },
-    console.log(`Connected to the human_resources_db database.`)
+    }
   );
  connection.connect();
   
-
 const queryDepartments = function(){
-console.log("the queryDepartments function was called");
-connection.query('SELECT * FROM departments;', (err, res) => {
-    console.log("response is", res)
- });
-
+    // console.log("the queryDepartments function was called");
+    connection.query('SELECT * FROM departments;', (err, res) => {
+        console.table(res); 
+    });
+    // homePage();
 }
 
 const queryRoles = function(){
-    db.query('SELECT * FROM roles;')
+    connection.query('SELECT * FROM roles;', (err, res) => {
+        console.table(res);
+    })
 }
 
+// including employee ids, first names, last names, job titles, departments, salaries, and managers that the employees report to
 const queryEmployees = function(){
-    db.query('SELECT * FROM employees;')
+    connection.query('SELECT employees.id, employees.first_name, employees.last_name, roles.title, departments.department, roles.salary, employees.manager FROM employees JOIN roles ON employees.role_id=roles.id JOIN departments ON employees.department_id=departments.id;', (err, res) => {
+        console.table(res);
+    })
 }
 
 const newRole = function(answers){
-    db.query('INSERT INTO roles (title, salary, department_id) VALUES (?,?,?);', rolename, salary, department)
+    connection.query('INSERT INTO roles (title, salary, department_id) VALUES (?,?,?);', rolename, salary, department)
 }
 
 const newEmployee = function(){
@@ -44,7 +48,7 @@ const updateEmployeeInfo = function(){
 }
 
 const createDepartment = function(department){
-    db.query('INSERT INTO departments SET ?;', department)
+    connection.query('INSERT INTO departments SET ?;', department)
     console.log("added department");
 }
 
