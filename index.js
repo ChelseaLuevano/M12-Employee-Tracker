@@ -1,7 +1,5 @@
 const inquirer = require('inquirer');
-
-const db = require('./db/connection');
-const {queryDepartments, queryRoles, queryEmployees,  newRole, newEmployee, updateEmployeeInfo, createDepartment} = require('./db/queries.js');
+const {queryDepartments, queryRoles, queryEmployees, newRole, newEmployee, updateEmployeeInfo, createDepartment} = require('./db/queries.js');
 
 // CLI questions
 const hubQuestion = {
@@ -23,9 +21,11 @@ const hubQuestion = {
 // Function to initialize app
 function homePage() {
     inquirer.prompt(hubQuestion)
-        .then(answer => {
-            switch(answer){
+        .then(answer => { 
+            console.log(answer)
+            switch(answer.activity){
                 case "View All Departments":
+                    console.log("in view all departments case");
                     viewAllDepartments();
                     break;
                 case "View All Roles":
@@ -58,6 +58,7 @@ function homePage() {
 
 // Function to View All Department
 function viewAllDepartments() {
+    console.log("viewAllDepartments function was called")
     queryDepartments();
     homePage();
 }
@@ -150,7 +151,7 @@ function addEmployee(){
 
 // Function to Update an Employee Role
 function updateEmployeeRole(){
-    updateEmployeeRole();
+    updateEmployeeInfo();
     homePage();
 }
 

@@ -1,10 +1,26 @@
-const db = require('./connection.js');
 const cTable = require('console.table');
 
+// Import and require mysql2
+const mysql = require('mysql2');
+
+// Connect to database
+const connection = mysql.createConnection({
+      host: 'localhost',
+      user: 'root',
+      password: 'HappyDog13$',
+      database: 'human_resources_db'
+    },
+    console.log(`Connected to the human_resources_db database.`)
+  );
+ connection.connect();
+  
+
 const queryDepartments = function(){
- let allDepartments = (db.query('SELECT * FROM departments;'));
- console.log(allDepartments);
-   console.table("the queryDepartments function was called");
+console.log("the queryDepartments function was called");
+connection.query('SELECT * FROM departments;', (err, res) => {
+    console.log("response is", res)
+ });
+
 }
 
 const queryRoles = function(){
