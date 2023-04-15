@@ -151,8 +151,26 @@ function addEmployee(){
 
 // Function to Update an Employee Role
 function updateEmployeeRole(){
+    inquirer.prompt(
+        {
+            type: 'list',
+            message: 'What employee would you like to update role information for?',
+            name: 'employee',
+            choices: [
+                "SpongeBob",
+                "Patrick",
+                "Eugene",
+                "Squidward",
+                "Sandy",
+                "Pearl",
+                "Gerald Gary Snail Wilson Jr"
+            ],
+            validate: (value) => { if (value) { return true } else { return "Please pick an employee." }},
+        },
+    ).then(() => {  
     updateEmployeeInfo();
     // homePage();
+    })
 }
 
 // Function to initialize app

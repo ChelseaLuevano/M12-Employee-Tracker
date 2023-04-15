@@ -30,21 +30,44 @@ const queryRoles = function(){
 
 // including employee ids, first names, last names, job titles, departments, salaries, and managers that the employees report to
 const queryEmployees = function(){
-    connection.query('SELECT employees.id, employees.first_name, employees.last_name, roles.title, departments.department, roles.salary, employees.manager FROM employees JOIN roles ON employees.role_id=roles.id JOIN departments ON employees.department_id=departments.id;', (err, res) => {
+    const sql = 'SELECT employees.id, employees.first_name, employees.last_name, roles.title, departments.department, roles.salary, employees.manager FROM employees JOIN roles ON employees.role_id=roles.id JOIN departments ON employees.department_id=departments.id;'
+    connection.query(sql, (err, res) => {
         console.table(res);
     })
 }
 
 const newRole = function(answers){
-    connection.query('INSERT INTO roles (title, salary, department_id) VALUES (?,?,?);', rolename, salary, department)
+    const sql = 'INSERT INTO roles (title, salary, department_id) VALUES (?,?,?)';
+    const params = [answers.rolename, answers.salary, answers.department];
+    connection.query(sql, params,(err, res) => {
+        if (err) {
+        console.log(err)
+        }
+      console.log("New Role: ", res, "has been added!")  
+    })
 }
 
-const newEmployee = function(){
-    console.log("new employee added")
+const newEmployee = function(answers){
+    // need to confirm criteria for new employee
+    const sql = 'INSERT INTO employees (first_name, last_name, department_id, manager) VALUES (?,?,?)';
+    const params = [answers.firstname, answers.employeerole,answers.manager];
+    connection.query(sql, params,(err, res) => {
+        if (err) {
+        console.log(err)
+        }
+      console.log("New Employee Information Added: ", res)  
+    })
 }
 
-const updateEmployeeInfo = function(){
-    console.log("new employee's info has been added")
+const updateEmployeeInfo = function(answer){
+    // SQL statement should update employee role id in employee table"
+    const sql = 'UPDATE employees SET role_id = (?) WHERE employees.first_name = ';
+    const params = [answer.employee];
+        connection.query(sql, params,(err, res) => {
+            if (err) {
+            console.log(err)
+            }
+        })    
 }
 
 const createDepartment = function(department){
