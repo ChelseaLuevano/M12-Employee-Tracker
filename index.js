@@ -131,9 +131,12 @@ function addEmployee(){
             message: 'What is the role of the employee?',
             name: 'employeerole',
             choices: [
+                "Accountant",
+                "Data Scientist",
+                "Payroll Admin",
+                "Recruiter",
                 "Sales Person",
                 "Sales Lead",
-                "Accountant"
             ],
             validate: (value) => { if (value) { return true } else { return "Please pick a role from the list." }},
         },
