@@ -10,7 +10,6 @@ USE human_resources_db;
 CREATE TABLE departments (
     id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     department VARCHAR(250) NOT NULL
-
 );    
 
 
@@ -27,7 +26,6 @@ CREATE TABLE employees (
     id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     first_name VARCHAR(150) NOT NULL,
     last_name VARCHAR(150) NOT NULL,
-    title VARCHAR (150) NOT NULL,
     department_id INT NOT NULL,
     manager VARCHAR(150),
     role_id INT NOT NULL,
