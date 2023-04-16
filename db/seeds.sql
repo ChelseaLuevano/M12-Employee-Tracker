@@ -16,7 +16,7 @@ VALUES  (1, "Sales Person", 50000, 1),
 
 INSERT INTO employees(id, first_name, last_name, department_id, manager, role_id)
 VALUES  (1, "SpongeBob", "Squarepants", 1, "Eugene Krabs", 1),
-        (2, "Eugene", "Krabs", 2, NULL, 1),
+        (2, "Eugene", "Krabs", 1, NULL, 2),
         (3, "Patrick", "Star", 1, "Eugene Krabs", 1),
         (4, "Squidward", "Tentacles", 2, "Sheldon Plankton", 3),
         (5, "Sandy", "Cheeks", 3, "Pearl Krabs", 4),
