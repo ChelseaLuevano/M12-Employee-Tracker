@@ -36,9 +36,40 @@ const queryEmployees = function(){
     })
 }
 
+const roleDepartmentID = function(department) {
+    // let departmentid;
+    console.log("the roleDepartmentID function was called");
+
+    if (`${department}` === "Actuarial") {
+        return 4;
+    }
+    else if (`${department}` === "Human Resources") {
+        return 3
+    }
+    else if (`${department}` === "Finance") {
+        return 2; 
+    }
+    else {return 1;}
+}
+
 const newRole = function(answers){
+    console.log("the newRole function was called")
+
+    // let departmentid;
+    // if (answers.department === "Actuarial") {
+    //     return departmentid = 4
+
+    // }
+    // else if (answers.department === "Human Resources") {
+    //     return departmentid = 3
+    // }
+    // else if (answers.department === "Finance") {
+    //     return departmentid = 2
+    // }
+    // else {return 1}; 
+    roleDepartmentID(answers);
     const sql = 'INSERT INTO roles (title, salary, department_id) VALUES (?,?,?)';
-    const params = [answers.rolename, answers.salary, answers.department];
+    const params = [answers.rolename, answers.salary, `${roleDepartmentID(answers)}`];
     connection.query(sql, params,(err, res) => {
         if (err) {
         console.log(err)
@@ -75,4 +106,4 @@ const createDepartment = function(department){
     console.log("added department");
 }
 
-module.exports = {queryDepartments, queryRoles, queryEmployees, newRole, newEmployee, updateEmployeeInfo, createDepartment}
+module.exports = {queryDepartments, queryRoles, queryEmployees, newRole, newEmployee, updateEmployeeInfo, createDepartment, roleDepartmentID}

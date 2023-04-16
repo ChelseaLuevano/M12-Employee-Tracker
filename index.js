@@ -1,5 +1,5 @@
 const inquirer = require('inquirer');
-const {queryDepartments, queryRoles, queryEmployees, newRole, newEmployee, updateEmployeeInfo, createDepartment} = require('./db/queries.js');
+const {queryDepartments, queryRoles, queryEmployees, newRole, newEmployee, updateEmployeeInfo, createDepartment, roleDepartmentID} = require('./db/queries.js');
 
 // CLI questions
 const hubQuestion = {
@@ -92,25 +92,32 @@ function addADepartment(){
 
 // Function to Add a Role
 function addARole() {
-    inquirer.prompt(
-        {
-            type: 'input',
-            message: 'What is the name of the role?',
-            name: 'rolename',
-            validate: (value) => { if (value) { return true } else { return "Please enter a role name." }},
-        },
-        {
-            type: 'input',
-            message: 'What is the salary for the role?',
-            name: 'salary',
-            validate: (value) => { if (value) { return true } else { return "Please enter a salary." }},
-        },
-        {
-            type: 'input',
-            message: 'What department is the role in?',
-            name: 'department',
-            validate: (value) => { if (value) { return true } else { return "Please enter a department title." }},
-        },
+    inquirer.prompt([
+            {
+                type: 'input',
+                message: 'What is the name of the role?',
+                name: 'rolename',
+                validate: (value) => { if (value) { return true } else { return "Please enter a role name." }},
+            },
+            {
+                type: 'input',
+                message: 'What is the salary for the role?',
+                name: 'salary',
+                validate: (value) => { if (value) { return true } else { return "Please enter a salary." }},
+            },
+            {
+                type: 'list',
+                message: 'What department is the role in?',
+                name: 'department',
+                choices: [
+                    "Actuarial",
+                    "Finance",
+                    "Human Resources",
+                    "Sales",
+                ],    
+                // validate: (value) => { if (department === "Actuarial")  { return true } else { return "Please select a department title." }},
+            },
+        ] 
     ).then((answers)=> {
         newRole(answers);
         // homePage();
