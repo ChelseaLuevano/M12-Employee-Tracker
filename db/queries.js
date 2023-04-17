@@ -60,10 +60,33 @@ const newRole = function(answers){
     })
 }
 
+const determineRoleID = function(employeerole) {
+    if (`${employeerole}` === "Sales Lead") {
+        return 2;
+    }    
+    else if (`${employeerole}` === "Sales Person") {
+        return 1;
+    }
+    else if (`${employeerole}` === "Accountant") {
+        return 3;
+    }
+    else if (`${employeerole}` === "Recruiter") {
+        return 4;
+    }
+    else if (`${employeerole}` === "Payroll Admin") {
+        return 5;
+    }
+    else if (`${employeerole}` === "Data Scientist") {
+        return 6;
+    }
+    else {return console.log("No Role ID exists in roles table")}
+
+}
+
 const newEmployee = function(answers){
     // need to confirm criteria for new employee
-    const sql = 'INSERT INTO employees (first_name, last_name, department_id, manager) VALUES (?,?,?)';
-    const params = [answers.firstname, answers.employeerole,answers.manager];
+    const sql = 'INSERT INTO employees (first_name, last_name, role_id, manager_id) VALUES (?,?,?,?)';
+    const params = [answers.firstname, answers.lastname, `${determineRoleID(answers)}`, answers.manager];
     connection.query(sql, params,(err, res) => {
         if (err) {
         console.log(err)

@@ -126,12 +126,18 @@ function addARole() {
 
 // Function to Add an Employee
 function addEmployee(){
-    inquirer.prompt(
+    inquirer.prompt([
         {
             type: 'input',
             message: 'What is the first name of the employee?',
             name: 'firstname',
             validate: (value) => { if (value) { return true } else { return "Please enter a first name." }},
+        },
+        {
+            type: 'input',
+            message: 'What is the last name of the employee?',
+            name: 'lastname',
+            validate: (value) => { if (value) { return true } else { return "Please enter a last name." }},
         },
         {
             type: 'list',
@@ -148,35 +154,47 @@ function addEmployee(){
             validate: (value) => { if (value) { return true } else { return "Please pick a role from the list." }},
         },
         {
-            type: 'input',
-            message: "What is the first and last name of the employee's manager?",
+            type: 'list',
+            message: "Who is the employee's manager?",
             name: 'manager',
+            choices: [
+                "SpongeBob",
+                "Eugene",
+                "Patrick",
+                "Squidward",
+                "Snady",
+                "Pearl",
+                "Gerald Gary Snail Wilson Jr",
+                "Sheldon",
+            ],    
             validate: (value) => { if (value) { return true } else { return "Please enter manager's name." }},
         },
+    ]   
     ).then((answers) => {
-        newEmployee();
+        newEmployee(answers);
         // homePage();
     })
 }
 
 // Function to Update an Employee Role
 function updateEmployeeRole(){
-    inquirer.prompt(
-        {
-            type: 'list',
-            message: 'What employee would you like to update role information for?',
-            name: 'employee',
-            choices: [
-                "SpongeBob",
-                "Patrick",
-                "Eugene",
-                "Squidward",
-                "Sandy",
-                "Pearl",
-                "Gerald Gary Snail Wilson Jr"
-            ],
-            validate: (value) => { if (value) { return true } else { return "Please pick an employee." }},
-        },
+    inquirer.prompt([
+            {
+                type: 'list',
+                message: 'What employee would you like to update role information for?',
+                name: 'employee',
+                choices: [
+                    "SpongeBob",
+                    "Patrick",
+                    "Eugene",
+                    "Squidward",
+                    "Sandy",
+                    "Pearl",
+                    "Gerald Gary Snail Wilson Jr"
+                ],
+                validate: (value) => { if (value) { return true } else { return "Please pick an employee." }},
+            },
+        ]    
     ).then(() => {  
     updateEmployeeInfo();
     // homePage();
