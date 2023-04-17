@@ -95,10 +95,10 @@ const newEmployee = function(answers){
     })
 }
 
-const updateEmployeeInfo = function(answer){
+const updateEmployeeInfo = function(answers){
     // SQL statement should update employee role id in employee table"
     const sql = 'UPDATE employees SET role_id = (?) WHERE employees.first_name = ';
-    const params = [answer.employee];
+    const params = [answers.employee, `${roleDepartmentID(answers)}`];
         connection.query(sql, params,(err, res) => {
             if (err) {
             console.log(err)

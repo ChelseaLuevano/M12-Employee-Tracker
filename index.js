@@ -194,9 +194,23 @@ function updateEmployeeRole(){
                 ],
                 validate: (value) => { if (value) { return true } else { return "Please pick an employee." }},
             },
+            {
+                type: 'list',
+                message: 'What is the new role of the employee?',
+                name: 'newrole',
+                choices: [
+                    "Accountant",
+                    "Data Scientist",
+                    "Payroll Admin",
+                    "Recruiter",
+                    "Sales Person",
+                    "Sales Lead",
+                ],
+                validate: (value) => { if (value) { return true } else { return "Please pick a role from the list." }},
+            },
         ]    
     ).then(() => {  
-    updateEmployeeInfo();
+    updateEmployeeInfo(answers);
     // homePage();
     })
 }
