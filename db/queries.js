@@ -30,16 +30,13 @@ const queryRoles = function(){
 
 // including employee ids, first names, last names, job titles, departments, salaries, and managers that the employees report to
 const queryEmployees = function(){
-    const sql = 'SELECT employees.id, employees.first_name, employees.last_name, roles.title, departments.department, roles.salary, employees.manager FROM employees JOIN roles ON employees.role_id=roles.id JOIN departments ON employees.department_id=departments.id;'
+    const sql = 'SELECT employees.id, employees.first_name, employees.last_name, roles.title, departments.department, roles.salary, employees.manager_id FROM roles JOIN employees ON roles.id=employees.role_id JOIN departments ON roles.department_id=departments.id;'
     connection.query(sql, (err, res) => {
         console.table(res);
     })
 }
 
 const roleDepartmentID = function(department) {
-    // let departmentid;
-    console.log("the roleDepartmentID function was called");
-
     if (`${department}` === "Actuarial") {
         return 4;
     }
@@ -53,28 +50,13 @@ const roleDepartmentID = function(department) {
 }
 
 const newRole = function(answers){
-    console.log("the newRole function was called")
-
-    // let departmentid;
-    // if (answers.department === "Actuarial") {
-    //     return departmentid = 4
-
-    // }
-    // else if (answers.department === "Human Resources") {
-    //     return departmentid = 3
-    // }
-    // else if (answers.department === "Finance") {
-    //     return departmentid = 2
-    // }
-    // else {return 1}; 
-    roleDepartmentID(answers);
     const sql = 'INSERT INTO roles (title, salary, department_id) VALUES (?,?,?)';
     const params = [answers.rolename, answers.salary, `${roleDepartmentID(answers)}`];
     connection.query(sql, params,(err, res) => {
         if (err) {
         console.log(err)
         }
-      console.log("New Role: ", res, "has been added!")  
+      console.log( res)  
     })
 }
 

@@ -103,7 +103,7 @@ function addARole() {
                 type: 'input',
                 message: 'What is the salary for the role?',
                 name: 'salary',
-                validate: (value) => { if (value) { return true } else { return "Please enter a salary." }},
+                // validate: (value) => { if (typeof value === "number") { return true } else { return "Please enter a salary with number format of two decimal places." }},
             },
             {
                 type: 'list',
