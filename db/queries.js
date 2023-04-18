@@ -1,5 +1,5 @@
 const cTable = require('console.table');
-const {homePage, addARole} = require('../index.js');
+// const {homePage, addARole} = require('../index.js');
 
 
 // Import and require mysql2
@@ -39,11 +39,20 @@ const roleChoices = function() {
 }     
 
 // including employee ids, first names, last names, job titles, departments, salaries, and managers that the employees report to
-const queryEmployees = function(){
+const queryEmployees = function(homePageCallback){
     const sql = 'SELECT employees.id, employees.first_name, employees.last_name, roles.title, departments.department, roles.salary, employees.manager_id FROM roles JOIN employees ON roles.id=employees.role_id JOIN departments ON roles.department_id=departments.id;'
     connection.query(sql, (err, res) => {
         console.table(res);
+        homePageCallback();
     })
+}
+
+const createDepartment = function(department){
+    const sql = 'INSERT INTO departments SET ?;'
+    connection.promise().query(sql, department, (err, res) => {
+        console.log("added department");
+    })
+       
 }
 
 const roleDepartmentID = function(department) {
@@ -116,9 +125,5 @@ const updateEmployeeInfo = function(answers){
         })    
 }
 
-const createDepartment = function(department){
-    connection.query('INSERT INTO departments SET ?;', department)
-    console.log("added department");
-}
 
 module.exports = {queryDepartments, queryRoles, queryEmployees, newRole, newEmployee, updateEmployeeInfo, createDepartment, roleDepartmentID, roleChoices}

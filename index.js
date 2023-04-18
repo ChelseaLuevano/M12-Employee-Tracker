@@ -60,19 +60,16 @@ function homePage() {
 function viewAllDepartments() {
     console.log("viewAllDepartments function was called")
     queryDepartments(homePage)
-    // homePage();
 }
 
 // Function to View All Roles
 function viewAllRoles() {
     queryRoles(homePage);
-    // homePage();
 }
 
 // Function to View All Employees
 function viewAllEmployees() {
-    queryEmployees();
-    // homePage();
+    queryEmployees(homePage);
 }
 
 // Function to Add a Department
@@ -85,8 +82,12 @@ function addADepartment(){
             validate: (value) => { if (value) { return true } else { return "Please enter a department title." }},
         }
     ).then((answer)=> {
-        createDepartment(answer);
-        homePage();
+        createDepartment(answer).then(
+            function(res) {
+                console.table(res);
+                homePage();
+            }
+        )
     })
 }
 
@@ -94,6 +95,7 @@ function addADepartment(){
 function addARole(choices) {
 
    console.log(choices)
+
     inquirer.prompt([
             {
                 type: 'input',

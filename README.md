@@ -19,7 +19,7 @@ Video Demo:
     ## Credits
     I had a tutoring session on 4/13 with Ben Martin. He helped me write the shells for functions within index.js and work on two examples of how to put my sql statements into functions in the queries.js.
 
-    I had a tutoring session on 4.18 with Benicio Lopez. He helped me work on how to call the homePage function AFTER calling the other function (ie. activities the user would pick in command terminal). I was having an issue where the homePage function would be called and displayed in terminal BEFORE the prior function was completed and displayed in terminal. We made this fix using callback functions passed as parameters. 
+    I had a tutoring session on 4/18 with Benicio Lopez. He helped me work on how to call the homePage function AFTER calling the other function (ie. activities the user would pick in command terminal). I was having an issue where the homePage function would be called and displayed in terminal BEFORE the prior function was completed and displayed in terminal. We made this fix using callback functions passed as parameters. 
 
     ## License
     ISC https://opensource.org/licenses/ISC
