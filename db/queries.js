@@ -1,5 +1,6 @@
 const cTable = require('console.table');
-const {homePage} = require('../index.js');
+const {homePage, addARole} = require('../index.js');
+
 
 // Import and require mysql2
 const mysql = require('mysql2');
@@ -19,14 +20,22 @@ const queryDepartments = function(){
     connection.query('SELECT * FROM departments;', (err, res) => {
         console.table(res); 
     });
-    // homePage();
+    homePage();
 }
 
 const queryRoles = function(){
     connection.query('SELECT * FROM roles;', (err, res) => {
         console.table(res);
+        return res;
     })
 }
+
+const roleChoices = function() {
+     connection.query('SELECT roles.title FROM roles;', (err, res) => {
+        console.log(res)
+        addARole(res);
+    })
+}     
 
 // including employee ids, first names, last names, job titles, departments, salaries, and managers that the employees report to
 const queryEmployees = function(){
@@ -111,4 +120,4 @@ const createDepartment = function(department){
     console.log("added department");
 }
 
-module.exports = {queryDepartments, queryRoles, queryEmployees, newRole, newEmployee, updateEmployeeInfo, createDepartment, roleDepartmentID}
+module.exports = {queryDepartments, queryRoles, queryEmployees, newRole, newEmployee, updateEmployeeInfo, createDepartment, roleDepartmentID, roleChoices}

@@ -1,5 +1,5 @@
 const inquirer = require('inquirer');
-const {queryDepartments, queryRoles, queryEmployees, newRole, newEmployee, updateEmployeeInfo, createDepartment, roleDepartmentID} = require('./db/queries.js');
+const {queryDepartments, queryRoles, queryEmployees, newRole, newEmployee, updateEmployeeInfo, createDepartment, roleDepartmentID, roleChoices} = require('./db/queries.js');
 
 // CLI questions
 const hubQuestion = {
@@ -29,7 +29,7 @@ function homePage() {
                     viewAllDepartments();
                     break;
                 case "View All Roles":
-                    viewAllRoles();
+                    addARole();
                     break; 
                 case "View All Employees":
                     viewAllEmployees();
@@ -59,7 +59,7 @@ function homePage() {
 // Function to View All Department
 function viewAllDepartments() {
     console.log("viewAllDepartments function was called")
-    queryDepartments();
+    queryDepartments()
     // homePage();
 }
 
@@ -91,7 +91,9 @@ function addADepartment(){
 }
 
 // Function to Add a Role
-function addARole() {
+function addARole(choices) {
+
+   console.log(choices)
     inquirer.prompt([
             {
                 type: 'input',
@@ -222,4 +224,4 @@ function init(){
 
 init();
 
-module.exports = {homePage}
+module.exports = {homePage, addARole}
