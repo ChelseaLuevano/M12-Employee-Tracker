@@ -1,5 +1,5 @@
 const inquirer = require('inquirer');
-const {queryDepartments, queryRoles, queryEmployees, newRole, newEmployee, updateEmployeeInfo, createDepartment, roleDepartmentID, roleChoices} = require('./db/queries.js');
+const {queryDepartments, queryRoles, queryEmployees, newRole, newEmployee, updateEmployeeInfo, createDepartment, roleDepartmentID, roleChoices, departmentChoices} = require('./db/queries.js');
 
 // CLI questions
 const hubQuestion = {
@@ -82,50 +82,54 @@ function addADepartment(){
             validate: (value) => { if (value) { return true } else { return "Please enter a department title." }},
         }
     ).then((answer)=> {
-        createDepartment(answer).then(
-            function(res) {
-                console.table(res);
+        createDepartment(answer.department)
+            .then(function(data) {
+                console.log(data)
+                // console.table(answer);
                 homePage();
-            }
-        )
-    })
+            });
+    });
 }
 
 // Function to Add a Role
 function addARole(choices) {
-
+const departmentArray = []
    console.log(choices)
+    departmentChoices()
+        .then((departmentList) => { console.log(departmentList)
+            departmentList[0].forEach(element => {
+            departmentArray.push(element.department); 
+            })
+            console.log(departmentArray);
+            inquirer.prompt([
+                {
+                    type: 'input',
+                    message: 'What is the name of the role?',
+                    name: 'rolename',
+                    validate: (value) => { if (value) { return true } else { return "Please enter a role name." }},
+                },
+                {
+                    type: 'input',
+                    message: 'What is the salary for the role?',
+                    name: 'salary',
+                    // validate: (value) => { if (typeof value === "number") { return true } else { return "Please enter a salary with number format of two decimal places." }},
+                },
+                {
+                    type: 'list',
+                    message: 'What department is the role in?',
+                    name: 'department',
+                    choices: departmentArray,    
+                    // validate: (value) => { if (department === "Actuarial")  { return true } else { return "Please select a department title." }},
+                },
+            ] 
+        ).then((answers)=> {
+            newRole(answers);
+            // homePage();
+        })   
+        }
 
-    inquirer.prompt([
-            {
-                type: 'input',
-                message: 'What is the name of the role?',
-                name: 'rolename',
-                validate: (value) => { if (value) { return true } else { return "Please enter a role name." }},
-            },
-            {
-                type: 'input',
-                message: 'What is the salary for the role?',
-                name: 'salary',
-                // validate: (value) => { if (typeof value === "number") { return true } else { return "Please enter a salary with number format of two decimal places." }},
-            },
-            {
-                type: 'list',
-                message: 'What department is the role in?',
-                name: 'department',
-                choices: [
-                    "Actuarial",
-                    "Finance",
-                    "Human Resources",
-                    "Sales",
-                ],    
-                // validate: (value) => { if (department === "Actuarial")  { return true } else { return "Please select a department title." }},
-            },
-        ] 
-    ).then((answers)=> {
-        newRole(answers);
-        // homePage();
-    })   
+        )
+    
 }
 
 // Function to Add an Employee

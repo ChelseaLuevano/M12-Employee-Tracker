@@ -1,5 +1,5 @@
 const cTable = require('console.table');
-// const {homePage, addARole} = require('../index.js');
+// const {departmentChoices, addARole} = require('../index.js');
 
 
 // Import and require mysql2
@@ -22,6 +22,11 @@ const queryDepartments = function(homePageCallback){
         homePageCallback(); 
     });
 
+}
+
+const departmentChoices = function() {
+    // const departmentArray = [];
+    return connection.promise().query('SELECT departments.department FROM departments;')
 }
 
 const queryRoles = function(homePageCallback){
@@ -48,11 +53,8 @@ const queryEmployees = function(homePageCallback){
 }
 
 const createDepartment = function(department){
-    const sql = 'INSERT INTO departments SET ?;'
-    connection.promise().query(sql, department, (err, res) => {
-        console.log("added department");
-    })
-       
+    const sql = 'INSERT INTO departments (department) VALUES (?);';
+    return connection.promise().query(sql, department);   
 }
 
 const roleDepartmentID = function(department) {
@@ -77,6 +79,8 @@ const newRole = function(answers){
         }
       console.log( res)  
     })
+
+    queryRoles();
 }
 
 const determineRoleID = function(employeerole) {
@@ -126,4 +130,4 @@ const updateEmployeeInfo = function(answers){
 }
 
 
-module.exports = {queryDepartments, queryRoles, queryEmployees, newRole, newEmployee, updateEmployeeInfo, createDepartment, roleDepartmentID, roleChoices}
+module.exports = {queryDepartments, queryRoles, queryEmployees, newRole, newEmployee, updateEmployeeInfo, createDepartment, roleDepartmentID, roleChoices, departmentChoices}
