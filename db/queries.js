@@ -15,18 +15,19 @@ const connection = mysql.createConnection({
   );
  connection.connect();
   
-const queryDepartments = function(){
+const queryDepartments = function(homePageCallback){
     // console.log("the queryDepartments function was called");
     connection.query('SELECT * FROM departments;', (err, res) => {
-        console.table(res); 
+        console.table(res);
+        homePageCallback(); 
     });
-    homePage();
+
 }
 
-const queryRoles = function(){
+const queryRoles = function(homePageCallback){
     connection.query('SELECT * FROM roles;', (err, res) => {
         console.table(res);
-        return res;
+        homePageCallback();
     })
 }
 

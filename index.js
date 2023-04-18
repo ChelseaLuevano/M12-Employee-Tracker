@@ -29,7 +29,7 @@ function homePage() {
                     viewAllDepartments();
                     break;
                 case "View All Roles":
-                    addARole();
+                    viewAllRoles();
                     break; 
                 case "View All Employees":
                     viewAllEmployees();
@@ -59,13 +59,13 @@ function homePage() {
 // Function to View All Department
 function viewAllDepartments() {
     console.log("viewAllDepartments function was called")
-    queryDepartments()
+    queryDepartments(homePage)
     // homePage();
 }
 
 // Function to View All Roles
 function viewAllRoles() {
-    queryRoles();
+    queryRoles(homePage);
     // homePage();
 }
 
@@ -224,4 +224,4 @@ function init(){
 
 init();
 
-module.exports = {homePage, addARole}
+// module.exports = {homePage, addARole}
