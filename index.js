@@ -74,33 +74,39 @@ function viewAllEmployees() {
 
 // Function to Add a Department
 function addADepartment(){
-    inquirer.prompt(
-        {
-            type: 'input',
-            message: 'What is the name of the department?',
-            name: 'department',
-            validate: (value) => { if (value) { return true } else { return "Please enter a department title." }},
-        }
-    ).then((answer)=> {
-        createDepartment(answer.department)
-            .then(function(data) {
-                console.log(data)
-                // console.table(answer);
-                homePage();
-            });
-    });
+    const departmentArray = []
+    departmentChoices()
+        .then((departmentList) => {
+            departmentList[0].forEach(element => {
+            departmentArray.push(element.department); 
+            }) 
+            inquirer.prompt(
+                {
+                    type: 'input',
+                    message: 'What is the name of the department?',
+                    name: 'department',
+                    validate: (value) => { 
+                        if (departmentArray.includes(value)) { return "Department already exists"} 
+                        else {return true}}
+                }
+            ).then((answer)=> {
+                createDepartment(answer.department)
+                    .then(function(data) {
+                        homePage();
+                    });
+        });
+    })
 }
 
+
 // Function to Add a Role
-function addARole(choices) {
+function addARole() {
 const departmentArray = []
-   console.log(choices)
     departmentChoices()
-        .then((departmentList) => { console.log(departmentList)
+        .then((departmentList) => {
             departmentList[0].forEach(element => {
             departmentArray.push(element.department); 
             })
-            console.log(departmentArray);
             inquirer.prompt([
                 {
                     type: 'input',
@@ -121,14 +127,15 @@ const departmentArray = []
                     choices: departmentArray,    
                     // validate: (value) => { if (department === "Actuarial")  { return true } else { return "Please select a department title." }},
                 },
-            ] 
-        ).then((answers)=> {
-            newRole(answers);
-            // homePage();
-        })   
-        }
-
-        )
+            ]).then((answers)=> {
+                newRole(answers)
+                    .then(function(data) {
+                        console.log(data)
+                        homePage();
+                });
+                
+            })   
+        })
     
 }
 

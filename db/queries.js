@@ -73,14 +73,11 @@ const roleDepartmentID = function(department) {
 const newRole = function(answers){
     const sql = 'INSERT INTO roles (title, salary, department_id) VALUES (?,?,?)';
     const params = [answers.rolename, answers.salary, `${roleDepartmentID(answers)}`];
-    connection.query(sql, params,(err, res) => {
+    connection.promise().query(sql, params,(err, res) => {
         if (err) {
         console.log(err)
-        }
-      console.log( res)  
+        } 
     })
-
-    queryRoles();
 }
 
 const determineRoleID = function(employeerole) {
