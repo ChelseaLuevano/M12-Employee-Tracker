@@ -118,7 +118,7 @@ const departmentArray = []
                     type: 'input',
                     message: 'What is the salary for the role?',
                     name: 'salary',
-                    // validate: (value) => { if (typeof value === "number") { return true } else { return "Please enter a salary in whole number format." }},
+                    validate: (value) => {if (isNaN(value)) {return 'Please enter a number' } else { return true }},
                 },
                 {
                     type: 'list',
@@ -136,14 +136,15 @@ const departmentArray = []
                         console.log(data)
                         homePage();
                 });
-                
             })   
         })
-    
 }
 
 // Function to Add an Employee
 function addEmployee(){
+    const roleArray =[];
+    roleChoices()
+        .then
     inquirer.prompt([
         {
             type: 'input',
