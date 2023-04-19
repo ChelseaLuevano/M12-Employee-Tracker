@@ -86,7 +86,7 @@ function addADepartment(){
                     message: 'What is the name of the department?',
                     name: 'department',
                     validate: (value) => { 
-                        if (departmentArray.includes(value)) { return "Department already exists"} 
+                        if (departmentArray.includes(value)) {return "Department already exists"} 
                         else {return true}}
                 }
             ).then((answer)=> {
@@ -118,14 +118,17 @@ const departmentArray = []
                     type: 'input',
                     message: 'What is the salary for the role?',
                     name: 'salary',
-                    // validate: (value) => { if (typeof value === "number") { return true } else { return "Please enter a salary with number format of two decimal places." }},
+                    // validate: (value) => { if (typeof value === "number") { return true } else { return "Please enter a salary in whole number format." }},
                 },
                 {
                     type: 'list',
                     message: 'What department is the role in?',
                     name: 'department',
                     choices: departmentArray,    
-                    // validate: (value) => { if (department === "Actuarial")  { return true } else { return "Please select a department title." }},
+                    validate: (value) => { 
+                        if (departmentArray.includes(value)) {return true} 
+                        else {return "Please enter an existing department"}
+                    }
                 },
             ]).then((answers)=> {
                 newRole(answers)
