@@ -37,10 +37,7 @@ const queryRoles = function(homePageCallback){
 }
 
 const roleChoices = function() {
-     connection.query('SELECT roles.title FROM roles;', (err, res) => {
-        console.log(res)
-        addARole(res);
-    })
+     return connection.promise().query('SELECT roles.title FROM roles;')
 }     
 
 // including employee ids, first names, last names, job titles, departments, salaries, and managers that the employees report to
@@ -58,22 +55,19 @@ const createDepartment = function(department){
 }
 
 const roleDepartmentID = function(department) {
-    if (`${department}` === "Actuarial") {
-        return 4;
-    }
-    else if (`${department}` === "Human Resources") {
-        return 3
-    }
-    else if (`${department}` === "Finance") {
-        return 2; 
-    }
-    else {return 1;}
+    const sql = 'SELECT * FROM departments;'
+    return connection.promise().query(sql)
+        .then ((department) => {
+            if (deparmtent === departments.department) {
+               return departments.id
+            }
+        })
 }
 
 const newRole = function(answers){
     const sql = 'INSERT INTO roles (title, salary, department_id) VALUES (?,?,?)';
     const params = [answers.rolename, answers.salary, `${roleDepartmentID(answers)}`];
-    connection.promise().query(sql, params,(err, res) => {
+   return  connection.promise().query(sql, params,(err, res) => {
         if (err) {
         console.log(err)
         } 
@@ -81,33 +75,20 @@ const newRole = function(answers){
 }
 
 const determineRoleID = function(employeerole) {
-    if (`${employeerole}` === "Sales Lead") {
-        return 2;
-    }    
-    else if (`${employeerole}` === "Sales Person") {
-        return 1;
-    }
-    else if (`${employeerole}` === "Accountant") {
-        return 3;
-    }
-    else if (`${employeerole}` === "Recruiter") {
-        return 4;
-    }
-    else if (`${employeerole}` === "Payroll Admin") {
-        return 5;
-    }
-    else if (`${employeerole}` === "Data Scientist") {
-        return 6;
-    }
-    else {return console.log("No Role ID exists in roles table")}
-
-}
+    const sql = 'SELECT roles.id, roles.title FROM roles;'
+    return connection.promise().query(sql)
+        .then ((employeerole) => {
+            if (employeerole === roles.title ) {
+                return roles.id
+        }
+    })
+}    
 
 const newEmployee = function(answers){
     // need to confirm criteria for new employee
     const sql = 'INSERT INTO employees (first_name, last_name, role_id, manager_id) VALUES (?,?,?,?)';
     const params = [answers.firstname, answers.lastname, `${determineRoleID(answers)}`, answers.manager];
-    connection.query(sql, params,(err, res) => {
+   return connection.promise().query(sql, params,(err, res) => {
         if (err) {
         console.log(err)
         }
@@ -119,7 +100,7 @@ const updateEmployeeInfo = function(answers){
     // SQL statement should update employee role id in employee table"
     const sql = 'UPDATE employees SET role_id = (?) WHERE employees.first_name = ';
     const params = [answers.employee, `${roleDepartmentID(answers)}`];
-        connection.query(sql, params,(err, res) => {
+       return connection.promise().query(sql, params,(err, res) => {
             if (err) {
             console.log(err)
             }

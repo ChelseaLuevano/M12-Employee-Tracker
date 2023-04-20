@@ -144,54 +144,57 @@ const departmentArray = []
 function addEmployee(){
     const roleArray =[];
     roleChoices()
-        .then
-    inquirer.prompt([
-        {
-            type: 'input',
-            message: 'What is the first name of the employee?',
-            name: 'firstname',
-            validate: (value) => { if (value) { return true } else { return "Please enter a first name." }},
-        },
-        {
-            type: 'input',
-            message: 'What is the last name of the employee?',
-            name: 'lastname',
-            validate: (value) => { if (value) { return true } else { return "Please enter a last name." }},
-        },
-        {
-            type: 'list',
-            message: 'What is the role of the employee?',
-            name: 'employeerole',
-            choices: [
-                "Accountant",
-                "Data Scientist",
-                "Payroll Admin",
-                "Recruiter",
-                "Sales Person",
-                "Sales Lead",
-            ],
-            validate: (value) => { if (value) { return true } else { return "Please pick a role from the list." }},
-        },
-        {
-            type: 'list',
-            message: "Who is the employee's manager?",
-            name: 'manager',
-            choices: [
-                "SpongeBob",
-                "Eugene",
-                "Patrick",
-                "Squidward",
-                "Snady",
-                "Pearl",
-                "Gerald Gary Snail Wilson Jr",
-                "Sheldon",
-            ],    
-            validate: (value) => { if (value) { return true } else { return "Please enter manager's name." }},
-        },
-    ]   
-    ).then((answers) => {
-        newEmployee(answers);
-        // homePage();
+        .then((roleList) => {
+            roleList[0].forEach(element => {
+           roleArray.push(element.title); 
+            })
+        inquirer.prompt([
+            {
+                type: 'input',
+                message: 'What is the first name of the employee?',
+                name: 'firstname',
+                validate: (value) => { if (value) { return true } else { return "Please enter a first name." }},
+            },
+            {
+                type: 'input',
+                message: 'What is the last name of the employee?',
+                name: 'lastname',
+                validate: (value) => { if (value) { return true } else { return "Please enter a last name." }},
+            },
+            {
+                type: 'list',
+                message: 'What is the role of the employee?',
+                name: 'employeerole',
+                choices: roleArray,
+                validate: (value) => {
+                    if (roleArray.includes(value)) {return true} 
+                        else {return "Please enter an existing role"}},
+                    //  if (value) { return true } else { return "Please pick a role from the list." }},
+            },
+            {
+                type: 'list',
+                message: "Who is the employee's manager?",
+                name: 'manager',
+                choices: [
+                    "SpongeBob",
+                    "Eugene",
+                    "Patrick",
+                    "Squidward",
+                    "Snady",
+                    "Pearl",
+                    "Gerald Gary Snail Wilson Jr",
+                    "Sheldon",
+                ],    
+                validate: (value) => { if (value) { return true } else { return "Please enter manager's name." }},
+            },
+        ]   
+        ).then((answers) => {
+            newEmployee(answers)
+                .then(function(data) {
+                    console.log(data)
+                    homePage();
+            });
+        })
     })
 }
 
