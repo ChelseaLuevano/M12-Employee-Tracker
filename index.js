@@ -142,12 +142,11 @@ const departmentArray = []
 
 // Function to Add an Employee
 function addEmployee(){
-    const roleArray =[];
+    let roleArray =[];
     roleChoices()
         .then((roleList) => {
-            roleList[0].forEach(element => {
-           roleArray.push(element.title); 
-            })
+          roleArray = roleList.map(role => ({"value": role.id, "name": role.title}));
+        })
         inquirer.prompt([
             {
                 type: 'input',
@@ -166,10 +165,9 @@ function addEmployee(){
                 message: 'What is the role of the employee?',
                 name: 'employeerole',
                 choices: roleArray,
-                validate: (value) => {
-                    if (roleArray.includes(value)) {return true} 
-                        else {return "Please enter an existing role"}},
-                    //  if (value) { return true } else { return "Please pick a role from the list." }},
+                // validate: (value) => {
+                //     if (roleArray.includes(value)) {return true} 
+                //         else {return "Please enter an existing role"}},
             },
             {
                 type: 'list',
@@ -195,8 +193,8 @@ function addEmployee(){
                     homePage();
             });
         })
-    })
 }
+
 
 // Function to Update an Employee Role
 function updateEmployeeRole(){
