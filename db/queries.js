@@ -37,7 +37,7 @@ const queryRoles = function(homePageCallback){
 }
 
 const roleChoices = function() {
-     return connection.promise().query('SELECT roles.title FROM roles;')
+     return connection.promise().query('SELECT roles.id, roles.title FROM roles;')
 }     
 
 // including employee ids, first names, last names, job titles, departments, salaries, and managers that the employees report to
@@ -74,20 +74,11 @@ const newRole = function(answers){
     })
 }
 
-const determineRoleID = function(employeerole) {
-    const sql = 'SELECT roles.id, roles.title FROM roles;'
-    return connection.promise().query(sql)
-        .then ((employeerole) => {
-            if (employeerole === roles.title ) {
-                return roles.id
-        }
-    })
-}    
 
 const newEmployee = function(answers){
     // need to confirm criteria for new employee
     const sql = 'INSERT INTO employees (first_name, last_name, role_id, manager_id) VALUES (?,?,?,?)';
-    const params = [answers.firstname, answers.lastname, `${determineRoleID(answers)}`, answers.manager];
+    const params = [answers.firstname, answers.lastname, answers.employeerole, answers.manager];
    return connection.promise().query(sql, params,(err, res) => {
         if (err) {
         console.log(err)
@@ -96,10 +87,15 @@ const newEmployee = function(answers){
     })
 }
 
+const employeeChoices = function() {
+    return connection.promise().query('SELECT employees.id, employees.first_name, employees.last_name, employees.role_id FROM employees;')
+}     
+
+
 const updateEmployeeInfo = function(answers){
     // SQL statement should update employee role id in employee table"
-    const sql = 'UPDATE employees SET role_id = (?) WHERE employees.first_name = ';
-    const params = [answers.employee, `${roleDepartmentID(answers)}`];
+    const sql = 'UPDATE employees SET role_id = (?) WHERE first_name = (?)';
+    const params = [answers.newrole, answers.employee];
        return connection.promise().query(sql, params,(err, res) => {
             if (err) {
             console.log(err)
@@ -108,4 +104,4 @@ const updateEmployeeInfo = function(answers){
 }
 
 
-module.exports = {queryDepartments, queryRoles, queryEmployees, newRole, newEmployee, updateEmployeeInfo, createDepartment, roleDepartmentID, roleChoices, departmentChoices}
+module.exports = {queryDepartments, queryRoles, queryEmployees, newRole, newEmployee, updateEmployeeInfo, createDepartment, roleDepartmentID, roleChoices, departmentChoices, employeeChoices}

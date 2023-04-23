@@ -1,5 +1,5 @@
 const inquirer = require('inquirer');
-const {queryDepartments, queryRoles, queryEmployees, newRole, newEmployee, updateEmployeeInfo, createDepartment, roleDepartmentID, roleChoices, departmentChoices} = require('./db/queries.js');
+const {queryDepartments, queryRoles, queryEmployees, newRole, newEmployee, updateEmployeeInfo, createDepartment, roleChoices, departmentChoices, employeeChoices} = require('./db/queries.js');
 
 // CLI questions
 const hubQuestion = {
@@ -143,10 +143,11 @@ const departmentArray = []
 // Function to Add an Employee
 function addEmployee(){
     let roleArray =[];
+    let managerArray =[{"value": null, "name": "n/a"}];
     roleChoices()
         .then((roleList) => {
-          roleArray = roleList.map(role => ({"value": role.id, "name": role.title}));
-        })
+          roleArray = roleList[0].map(role => ({"value": role.id, "name": role.title}));
+        
         inquirer.prompt([
             {
                 type: 'input',
@@ -165,75 +166,63 @@ function addEmployee(){
                 message: 'What is the role of the employee?',
                 name: 'employeerole',
                 choices: roleArray,
-                // validate: (value) => {
-                //     if (roleArray.includes(value)) {return true} 
-                //         else {return "Please enter an existing role"}},
+                validate: (value) => {
+                    if (roleArray.includes(value)) {return true} 
+                        else {return "Please enter an existing role"}},
             },
             {
                 type: 'list',
                 message: "Who is the employee's manager?",
                 name: 'manager',
-                choices: [
-                    "SpongeBob",
-                    "Eugene",
-                    "Patrick",
-                    "Squidward",
-                    "Snady",
-                    "Pearl",
-                    "Gerald Gary Snail Wilson Jr",
-                    "Sheldon",
-                ],    
-                validate: (value) => { if (value) { return true } else { return "Please enter manager's name." }},
+                choices: managerArray,    
             },
-        ]   
-        ).then((answers) => {
+        ]).then((answers) => {
             newEmployee(answers)
                 .then(function(data) {
                     console.log(data)
                     homePage();
             });
         })
+    })
 }
 
 
 // Function to Update an Employee Role
 function updateEmployeeRole(){
+    employeeArray = []
+    let roleArray =[];
+    roleChoices()
+        .then((roleList) => {
+            roleArray = roleList[0].map(role => ({"value": role.id, "name": role.title}));
+    employeeChoices()
+        .then((employeeList) => {
+            employeeArray = employeeList[0].map(e => ({"value": e.first_name, "name": e.firstname}))
+            
     inquirer.prompt([
             {
                 type: 'list',
                 message: 'What employee would you like to update role information for?',
                 name: 'employee',
-                choices: [
-                    "SpongeBob",
-                    "Patrick",
-                    "Eugene",
-                    "Squidward",
-                    "Sandy",
-                    "Pearl",
-                    "Gerald Gary Snail Wilson Jr"
-                ],
+                choices: employeeArray,
                 validate: (value) => { if (value) { return true } else { return "Please pick an employee." }},
             },
             {
                 type: 'list',
                 message: 'What is the new role of the employee?',
                 name: 'newrole',
-                choices: [
-                    "Accountant",
-                    "Data Scientist",
-                    "Payroll Admin",
-                    "Recruiter",
-                    "Sales Person",
-                    "Sales Lead",
-                ],
+                choices: roleArray,
                 validate: (value) => { if (value) { return true } else { return "Please pick a role from the list." }},
             },
         ]    
-    ).then(() => {  
-    updateEmployeeInfo(answers);
-    // homePage();
+            ).then((answers) => {  
+            updateEmployeeInfo(answers);
+            homePage();
+            })
+
+        })
     })
 }
+
 
 // Function to initialize app
 function init(){
