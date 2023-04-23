@@ -55,12 +55,12 @@ const createDepartment = function(department){
 }
 
 const roleDepartmentID = function(department) {
-    const sql = 'SELECT * FROM departments;'
-    return connection.promise().query(sql)
-        .then ((department) => {
-            if (deparmtent === departments.department) {
-               return departments.id
-            }
+    const sql = 'SELECT departments.id FROM departments WHERE department = (?)'
+    const params = [department]
+    return connection.promise().query(sql, params, (err, res) => {
+        if (err) {
+            console.log(err)
+            } 
         })
 }
 
@@ -76,7 +76,6 @@ const newRole = function(answers){
 
 
 const newEmployee = function(answers){
-    // need to confirm criteria for new employee
     const sql = 'INSERT INTO employees (first_name, last_name, role_id, manager_id) VALUES (?,?,?,?)';
     const params = [answers.firstname, answers.lastname, answers.employeerole, answers.manager];
    return connection.promise().query(sql, params,(err, res) => {

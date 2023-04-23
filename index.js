@@ -101,12 +101,11 @@ function addADepartment(){
 
 // Function to Add a Role
 function addARole() {
-const departmentArray = []
+let departmentArray = []
     departmentChoices()
         .then((departmentList) => {
-            departmentList[0].forEach(element => {
-            departmentArray.push(element.department); 
-            })
+           departmentArray = departmentList[0].map(d => ({"value": d.department, "name": d.name}));
+
             inquirer.prompt([
                 {
                     type: 'input',
