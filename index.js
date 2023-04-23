@@ -1,5 +1,5 @@
 const inquirer = require('inquirer');
-const {queryDepartments, queryRoles, queryEmployees, newRole, newEmployee, updateEmployeeInfo, createDepartment, roleChoices, departmentChoices, employeeChoices} = require('./db/queries.js');
+const {queryDepartments, queryRoles, queryEmployees, newRole, newEmployee, updateEmployeeInfo, createDepartment, roleChoices, departmentChoices, employeeChoices, roleDepartmentID} = require('./db/queries.js');
 
 // CLI questions
 const hubQuestion = {
@@ -229,5 +229,3 @@ function init(){
 }
 
 init();
-
-// module.exports = {homePage, addARole}

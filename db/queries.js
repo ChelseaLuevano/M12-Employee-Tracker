@@ -1,7 +1,6 @@
 const cTable = require('console.table');
 // const {departmentChoices, addARole} = require('../index.js');
 
-
 // Import and require mysql2
 const mysql = require('mysql2');
 
@@ -60,13 +59,14 @@ const roleDepartmentID = function(department) {
     return connection.promise().query(sql, params, (err, res) => {
         if (err) {
             console.log(err)
-            } 
-        })
+            }  
+        else return res    
+        })    
 }
 
 const newRole = function(answers){
     const sql = 'INSERT INTO roles (title, salary, department_id) VALUES (?,?,?)';
-    const params = [answers.rolename, answers.salary, `${roleDepartmentID(answers)}`];
+    const params = [answers.rolename, answers.salary, `${roleDepartmentID(answers.department)}`];
    return  connection.promise().query(sql, params,(err, res) => {
         if (err) {
         console.log(err)
@@ -101,6 +101,5 @@ const updateEmployeeInfo = function(answers){
             }
         })    
 }
-
 
 module.exports = {queryDepartments, queryRoles, queryEmployees, newRole, newEmployee, updateEmployeeInfo, createDepartment, roleDepartmentID, roleChoices, departmentChoices, employeeChoices}
