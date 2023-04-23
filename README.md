@@ -1,7 +1,7 @@
 # M12-Employee-Tracker
 This is a command-line application to manage a company's employee database, using Node.js, Inquirer, and MySQL. This is a part of the Module 12 Challenge for the Ohio State University Coding Bootcamp.
 
-Video Demo: 
+Video Demo: https://drive.google.com/file/d/1hxP45jule15dYp7beOseuIIMRtxS9iGE/view 
 
 ## Table of Contents
   - [Installation](#installation)

@@ -53,24 +53,22 @@ const createDepartment = function(department){
     return connection.promise().query(sql, department);   
 }
 
-const roleDepartmentID = function(department) {
+const roleDepartmentID = async function(answers) {
     const sql = 'SELECT departments.id FROM departments WHERE department = (?)'
-    const params = [department]
-    return connection.promise().query(sql, params, (err, res) => {
-        if (err) {
-            console.log(err)
-            }  
-        else return res    
-        })    
+    const params = [answers.department]
+    const [rows] = await connection.promise().query(sql, params)
+    return rows[0].id   
 }
 
-const newRole = function(answers){
+const newRole = async function(answers){
+    const departmentID = await roleDepartmentID(answers);
     const sql = 'INSERT INTO roles (title, salary, department_id) VALUES (?,?,?)';
-    const params = [answers.rolename, answers.salary, `${roleDepartmentID(answers.department)}`];
+    const params = [answers.rolename, answers.salary, departmentID];
    return  connection.promise().query(sql, params,(err, res) => {
         if (err) {
         console.log(err)
         } 
+    
     })
 }
 

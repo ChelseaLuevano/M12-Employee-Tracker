@@ -130,6 +130,7 @@ let departmentArray = []
                     }
                 },
             ]).then((answers)=> {
+                // roleDepartmentID(answers)
                 newRole(answers)
                     .then(function(data) {
                         console.log(data)
